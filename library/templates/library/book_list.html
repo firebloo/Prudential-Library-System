@@ -3,7 +3,15 @@
         <title> Prudential Library </title>
     </head>
     <body>
-    <p> Hi there! </P>
-    <p> It Works. </P>
+        <div>
+	    <h1><a href="/">Prudneital Library</a></h1>
+        </div>
+        {% for book in books %}
+            <div>
+                <p> published: {{ book.published_date }}</p>
+		<h1><a href=""> {{ book.title }} </a></h1>
+ 		<p>{{ book.author|linebreaksbr }} </p>
+            </div>
+        {% endfor %}
     </body>
 </html>
