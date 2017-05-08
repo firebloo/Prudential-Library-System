@@ -12,6 +12,7 @@ from django.core.urlresolvers import reverse_lazy
 
 def book_list(request):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    rental_history = RentHistory.objects.order_by('isbn')
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_detail(request, pk):
@@ -19,11 +20,12 @@ def book_detail(request, pk):
     Book.objects.get(pk=pk)
     return render(request, 'library/book_detail.html', {'book': book})
 
-def book_rental(request, pk, username):
+def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    #books = RentHistory.objects.order_by('isbn')
     book = get_object_or_404(Book, pk=pk)
     Book.objects.get(pk=pk)
-    RentHistory.rental(book.isbn, username)
+    RentHistory.rental(book, book.isbn) #이게 동작을 안하고 있음.
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_new(request):

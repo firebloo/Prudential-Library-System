@@ -9,7 +9,7 @@
             <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
             <p>{{ book.author|linebreaksbr }}</p>
             {% if user.is_active %}
-                <p><a href="{% url 'book_rental' pk=book.pk username=user.username%}">대여하기</a></p>
+                <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
             {% endif %}
         </div>
     {% endfor %}
