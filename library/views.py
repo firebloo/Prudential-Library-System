@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from .forms import CreateUserForm
 from django.core.urlresolvers import reverse_lazy
+from datetime import date
 
 def book_list(request):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -22,10 +23,11 @@ def book_detail(request, pk):
 
 def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    #books = RentHistory.objects.order_by('isbn')
     book = get_object_or_404(Book, pk=pk)
-    Book.objects.get(pk=pk)
-    RentHistory.rental(book, book.isbn) #이게 동작을 안하고 있음.
+    RentHistory(isbn = book.isbn, rental_date = date.today(), rental_user = request.user).save()
+    # RentHistory(isbn='123', rental_date=date.today(), release_date=date.today(), rental_user='123').save()
+    #Book.objects.get(pk=pk)
+    # RentHistory.rental(book, book.isbn) #이게 동작을 안하고 있음.
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_new(request):
