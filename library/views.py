@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Book
+from .models import RentHistory
 from django.shortcuts import render, get_object_or_404
 from .forms import BookForm
 from django.shortcuts import redirect
@@ -18,8 +19,12 @@ def book_detail(request, pk):
     Book.objects.get(pk=pk)
     return render(request, 'library/book_detail.html', {'book': book})
 
-def book_rental(request, pk):
-    return redirect('book_detail', pk=pk)
+def book_rental(request, pk, username):
+    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    book = get_object_or_404(Book, pk=pk)
+    Book.objects.get(pk=pk)
+    RentHistory.rental(book.isbn, username)
+    return render(request, 'library/book_list.html', {'books': books})
 
 def book_new(request):
     if request.method == "POST":

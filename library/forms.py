@@ -7,7 +7,7 @@ class BookForm(forms.ModelForm):
   
     class Meta:
         model = Book
-        fields = ('title', 'author',)
+        fields = ('isbn', 'title', 'author', 'publisher', 'category', 'page', )
 
 
 class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받아서 확장한다.

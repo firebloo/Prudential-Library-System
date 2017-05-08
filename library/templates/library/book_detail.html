@@ -7,8 +7,15 @@
                 {{ book.published_date }}
             </div>
         {% endif %}
-        <a class="btn btn-default" href="{% url 'book_edit' pk=book.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% if user.username == 'admin' %}
+            <a class="btn btn-default" href="{% url 'book_edit' pk=book.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
         <h1>{{ book.title }}</h1>
+        <p>{{ book.isbn|linebreaksbr }}</p>
         <p>{{ book.author|linebreaksbr }}</p>
+        <p>{{ book.publisher|linebreaksbr }}</p>
+        <p>{{ book.published_date|linebreaksbr }}</p>
+        <p>{{ book.category|linebreaksbr }}</p>
+        <p>{{ book.page|linebreaksbr }}</p>
     </div>
 {% endblock %}

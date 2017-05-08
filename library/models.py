@@ -37,6 +37,6 @@ class RentHistory(models.Model):
     rental_user = models.CharField(max_length=5, null=False)
 
     def rental(self):
-        
+
         self.rental_date = date.today()
         self.rental_user = User.username
