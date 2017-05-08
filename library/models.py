@@ -28,14 +28,15 @@ class Book(models.Model):
 
 
 class RentHistory(models.Model):
-    # isbn = models.ForeignKey(Book)
+    isbn = models.CharField(max_length=13)
     # rental_date = models.DateField(blank=False, null=False)
     # release_date = models.DateField(blank=False, null=False)
-    rental_date = models.DateField(auto_now_add=True)
-    release_date = models.DateField(auto_now_add=True)
+    rental_date = models.DateField(null=False)
+    release_date = models.DateField()
 
-    # rental_user = models.ForeignKey(User)
+    rental_user = models.CharField(max_length=5, null=False)
 
     def rental(self):
+        
         self.rental_date = date.today()
         self.rental_user = User.username
