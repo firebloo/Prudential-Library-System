@@ -1,5 +1,5 @@
 {% extends 'library/base.html' %}
-                    
+
 {% block content %}
     {% for book in books %}
         <div class="post">
@@ -8,9 +8,15 @@
             </div>
             <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
             <p>{{ book.author|linebreaksbr }}</p>
-            {% if user.is_active %}
-                <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
-            {% endif %}
+            {% for rental_history in rental_history %}
+                {% if rental_history.rental_user and rental_history.isbn == book.pk %}
+                    {{ rental_history.rental_user }}
+                {% else %}
+                    {% if user.is_active %}
+                        <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         </div>
     {% endfor %}
 {% endblock content %}

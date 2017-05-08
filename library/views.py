@@ -13,8 +13,8 @@ from datetime import date
 
 def book_list(request):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    rental_history = RentHistory.objects.order_by('isbn')
-    return render(request, 'library/book_list.html', {'books': books})
+    rental_history = RentHistory.objects.filter(release_date__isnull = True)
+    return render(request, 'library/book_list.html', {'books': books, 'rental_history': rental_history})
 
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
