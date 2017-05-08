@@ -18,16 +18,19 @@ def book_detail(request, pk):
     Book.objects.get(pk=pk)
     return render(request, 'library/book_detail.html', {'book': book})
 
+def book_rental(request, pk):
+    return redirect('book_detail', pk=pk)
+
 def book_new(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
             book.published_date = timezone.now()
-            book.publisher = "Me"
-            book.isbn = '12345'
-            book.category = 'none'
-            book.page = 350
+            # book.publisher = "Me"
+            # book.isbn = '12345'
+            # book.category = 'none'
+            # book.page = 350
             book.save()
             return redirect('book_detail', pk=book.pk)
     else:
@@ -41,10 +44,10 @@ def book_edit(request, pk):
       if form.is_valid():
           book = form.save(commit=False)
           book.published_date = timezone.now()
-          book.publisher = "Me"
-          book.isbn = '12345'
-          book.category = 'none'
-          book.page = 350
+          # book.publisher = "Me"
+          # book.isbn = '12345'
+          # book.category = 'none'
+          # book.page = 350
           book.save()
           return redirect('book_detail', pk=book.pk)
     else:
