@@ -18,4 +18,12 @@
         <p>{{ book.category|linebreaksbr }}</p>
         <p>{{ book.page|linebreaksbr }}</p>
     </div>
+
+    {% for rental_history in rental_history %}
+        {{ rental_history.rental_user }}
+        {{ rental_history.rental_date }}
+        {{ rental_history.release_date }}
+        <br>
+    {% endfor %}
+
 {% endblock %}

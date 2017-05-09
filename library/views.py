@@ -19,7 +19,8 @@ def book_list(request):
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     Book.objects.get(pk=pk)
-    return render(request, 'library/book_detail.html', {'book': book})
+    rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('rental_date')
+    return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history})
 
 def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
