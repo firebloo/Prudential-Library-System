@@ -26,9 +26,25 @@ def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     book = get_object_or_404(Book, pk=pk)
     RentHistory(isbn = book.isbn, rental_date = date.today(), rental_user = request.user).save()
+    book.rental_user = request.user.username
+    book.rental_date = date.today()
+    book.save()
     # RentHistory(isbn='123', rental_date=date.today(), release_date=date.today(), rental_user='123').save()
     #Book.objects.get(pk=pk)
     # RentHistory.rental(book, book.isbn) #이게 동작을 안하고 있음.
+    return render(request, 'library/book_list.html', {'books': books})
+
+def book_release(request, pk):
+    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    book = get_object_or_404(Book, pk=pk)
+    renthistory = get_object_or_404(RentHistory, isbn=book.isbn, release_date=None)
+
+    renthistory.release_date = date.today()
+    renthistory.save()
+
+    book.rental_user = None
+    book.rental_date = None
+    book.save()
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_new(request):

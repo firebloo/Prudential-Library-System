@@ -8,19 +8,17 @@
             </div>
             <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
             <p>{{ book.author|linebreaksbr }}</p>
-            <!--{% for rental_history in rental_history %}-->
-                <!--{% if rental_history.rental_user and rental_history.isbn == book.pk %}-->
-                    <!--{{ rental_history.rental_user }}-->
-                <!--{% else %}-->
-                    <!--{% if user.is_active %}-->
-                        <!--{% if rental_history.rental_user == user.username %}-->
-                            <!--<p><a href="{% url 'book_rental' pk=book.pk %}">반납하기</a></p>-->
-                        <!--{% else %}-->
-                            <!--<p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>-->
-                        <!--{% endif %}-->
-                    <!--{% endif %}-->
-                <!--{% endif %}-->
-            <!--{% endfor %}-->
+            {% if user.is_active %}
+                {% if book.rental_user %}
+                    {% if book.rental_user == user.username %}
+                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
+                    {% else %}
+                        <p>{{ book.rental_user }}</p>
+                    {% endif %}
+                {% else %}
+                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                {% endif %}
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock content %}
