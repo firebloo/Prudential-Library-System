@@ -4,7 +4,7 @@
     {% for book in books %}
         <div class="post">
             <div class="date">
-                {{ book.published_date }}
+                {{ book.request_date | date:"Y-m" }}
             </div>
             <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
             <p>{{ book.author|linebreaksbr }}</p>

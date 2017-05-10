@@ -18,11 +18,10 @@
         <p>{{ book.category|linebreaksbr }}</p>
         <p>{{ book.page|linebreaksbr }}</p>
     </div>
-
+    <p>대여 기록</p>
     {% for rental_history in rental_history %}
+        {{ rental_history.rental_date | date:"Y-m-d" }} ~  {{ rental_history.release_date | date:"Y-m-d" }}
         {{ rental_history.rental_user }}
-        {{ rental_history.rental_date }}
-        {{ rental_history.release_date }}
         <br>
     {% endfor %}
 

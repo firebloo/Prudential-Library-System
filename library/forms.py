@@ -7,7 +7,8 @@ from .models import RentHistory
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('isbn', 'title', 'author', 'publisher', 'category', 'page',)
+        fields = ('isbn', 'title', 'author', 'publisher', 'published_date', 'category', 'page',
+                  'request_user', 'request_date', 'owner_user',)
 
 class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받아서 확장한다.
     SOP = '시스템운영팀'

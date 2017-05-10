@@ -52,7 +52,7 @@ def book_new(request):
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
-            book.published_date = timezone.now()
+            # book.published_date = timezone.now()
             # book.publisher = "Me"
             # book.isbn = '12345'
             # book.category = 'none'
@@ -69,7 +69,7 @@ def book_edit(request, pk):
       form = BookForm(request.POST, instance=book)
       if form.is_valid():
           book = form.save(commit=False)
-          book.published_date = timezone.now()
+          # book.published_date = timezone.now()
           # book.publisher = "Me"
           # book.isbn = '12345'
           # book.category = 'none'
