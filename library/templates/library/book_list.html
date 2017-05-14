@@ -3,22 +3,46 @@
 {% block content %}
     {% for book in books %}
         <div class="post">
-            <div class="date">
-                {{ book.request_date | date:"Y-m" }}
-            </div>
-            <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
-            <p>{{ book.author|linebreaksbr }}</p>
-            {% if user.is_active %}
-                {% if book.rental_user %}
-                    {% if book.rental_user == user.username %}
-                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
-                    {% else %}
-                        <p>{{ book.rental_user }}</p>
-                    {% endif %}
-                {% else %}
-                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
-                {% endif %}
-            {% endif %}
+            <table border="0" width="100%">
+                <tr>
+                    <td rowspan="2" width="20%">
+                        <h1><a href="{% url 'book_detail' pk=book.pk %}"><img src = "{{STATIC_URL}}/static/image/{{ book.isbn }}.gif" widht="30%" height="30%">
+                    </td>
+                    <td>
+                            <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
+                    </td>
+                    <td rowspan="2" width="20%">
+                        <div class="date">
+                            {{ book.request_date | date:"Y-m" }} 입고
+                            {% if user.is_active %}
+                                {% if book.rental_user %}
+                                    {% if book.rental_user == user.username %}
+                                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
+                                    {% else %}
+                                        <p>{{ book.rental_user }}</p>
+                                        <p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>
+                                    {% endif %}
+                                {% else %}
+                                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                                {% endif %}
+                            {% else %}
+                                {% if book.rental_user %}
+                                    <p>{{ book.rental_user }}</p>
+                                {% else %}
+                                    <p> 대여가능 </p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>{{ book.author }} | {{ book.publisher }} | {{ book.published_date | date:"Y-m-d"}}</p>
+
+                    </td>
+                </tr>
+
+            </table>
         </div>
     {% endfor %}
 {% endblock content %}

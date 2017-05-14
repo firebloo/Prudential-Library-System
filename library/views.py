@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Book
 from .models import RentHistory
+from .models import ReserveHistory
 from django.shortcuts import render, get_object_or_404
 from .forms import BookForm
 from django.shortcuts import redirect
@@ -19,8 +20,27 @@ def book_list(request):
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     Book.objects.get(pk=pk)
-    rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('rental_date')
-    return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history})
+    reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('-reserve_date', 'reserve_user')
+    rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('-rental_date', 'release_date')
+    return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history,
+                                                        'reserve_history': reserve_history})
+
+def book_reserve(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    ReserveHistory(isbn = book.isbn, reserve_date = date.today(), reserve_user=request.user).save()
+    reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('-reserve_date', 'reserve_user')
+    rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('-rental_date', 'release_date')
+    return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history,
+                                                        'reserve_history': reserve_history})
+
+def book_reserve_cancel(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    reservehistory = get_object_or_404(ReserveHistory, reserve_user=request.user.username, isbn=book.isbn)
+    reservehistory.delete()
+    reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('-reserve_date', 'reserve_user')
+    rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('-rental_date', 'release_date')
+    return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history,
+                                                        'reserve_history': reserve_history})
 
 def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
