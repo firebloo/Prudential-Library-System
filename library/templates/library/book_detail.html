@@ -35,7 +35,9 @@
                 <h1>예약 현황</h1>
                 {% for reserve_history in reserve_history %}
                     {{ reserve_history.reserve_date | date:"Y-m-d" }} : {{ reserve_history.reserve_user }}
-                    <a class="btn btn-default" href="{% url 'book_reserve_cancel' pk=book.pk %}">예약취소</a>
+                    {% if reserve_history.reserve_user == user.username %}
+                        <a class="btn btn-default" href="{% url 'book_reserve_cancel' pk=book.pk %}">예약취소</a>
+                    {% endif %}
                     <br>
                 {% endfor %}
             </td>

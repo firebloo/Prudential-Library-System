@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
 from .models import Book
+from .models import RequestBook
 from .models import RentHistory
 
 class BookForm(forms.ModelForm):
@@ -9,6 +10,11 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = ('isbn', 'title', 'author', 'publisher', 'published_date', 'category', 'page',
                   'request_user', 'request_date', 'owner_user',)
+
+class BookRequestForm(forms.ModelForm):
+    class Meta:
+        model = RequestBook
+        fields = ('title', 'author', 'publisher',)
 
 class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받아서 확장한다.
     SOP = '시스템운영팀'

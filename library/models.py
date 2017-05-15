@@ -11,12 +11,12 @@ class Book(models.Model):
     category = models.CharField(max_length=200)
     page = models.IntegerField()
 
-    request_user = models.CharField(max_length=5, null=True)
+    request_user = models.CharField(max_length=3, null=True)
     request_date = models.DateField(null=True)
 
-    owner_user = models.CharField(max_length=5, null=True)
+    owner_user = models.CharField(max_length=3, null=True)
 
-    rental_user = models.CharField(max_length=5, null=True)
+    rental_user = models.CharField(max_length=3, null=True)
     rental_date = models.DateField(null=True)
 
     def rental(self):
@@ -26,6 +26,15 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+class RequestBook(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharFiled(max_length=200)
+    publisher = models.CharField(max_length=200)
+    request_user = models.CharField(max_length=3, null=True)
+    request_date = models.DateField(null=True)
+
+    def __str__(self):
+        return self.title
 
 class RentHistory(models.Model):
     isbn = models.CharField(max_length=13)
@@ -33,7 +42,7 @@ class RentHistory(models.Model):
     # release_date = models.DateField(blank=False, null=False)
     rental_date = models.DateField(null=False)
     release_date = models.DateField(null=True)
-    rental_user = models.CharField(max_length=5, null=False)
+    rental_user = models.CharField(max_length=3, null=False)
 
     comment = models.TextField()
 
@@ -49,7 +58,7 @@ class RentHistory(models.Model):
 class ReserveHistory(models.Model):
     isbn = models.CharField(max_length=13)
     reserve_date = models.DateField(null=False)
-    reserve_user = models.CharField(max_length=5, null=False)
+    reserve_user = models.CharField(max_length=3, null=False)
 
     def __str__(self):
         return self.isbn

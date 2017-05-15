@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^book/(?P<pk>[0-9]+)/release/$', views.book_release, name='book_release'),
     url(r'^book/(?P<pk>[0-9]+)/reserve/$', views.book_reserve, name='book_reserve'),
     url(r'^book/(?P<pk>[0-9]+)/reserve_cancel/$', views.book_reserve_cancel, name='book_reserve_cancel'),
+    url(r'^book/request/$', views.book_request, name='book_request'),
 ]

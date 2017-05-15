@@ -5,6 +5,7 @@ from .models import RentHistory
 from .models import ReserveHistory
 from django.shortcuts import render, get_object_or_404
 from .forms import BookForm
+from .forms import BookRequestForm
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
@@ -28,7 +29,7 @@ def book_detail(request, pk):
 def book_reserve(request, pk):
     book = get_object_or_404(Book, pk=pk)
     ReserveHistory(isbn = book.isbn, reserve_date = date.today(), reserve_user=request.user).save()
-    reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('-reserve_date', 'reserve_user')
+    reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('reserve_date')
     rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('-rental_date', 'release_date')
     return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history,
                                                         'reserve_history': reserve_history})
@@ -66,6 +67,17 @@ def book_release(request, pk):
     book.rental_date = None
     book.save()
     return render(request, 'library/book_list.html', {'books': books})
+
+def book_request(request):
+    if request.method == "POST":
+        form = BookRequestForm(request.POST)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'library/book_edit.html', {'form': form})
 
 def book_new(request):
     if request.method == "POST":

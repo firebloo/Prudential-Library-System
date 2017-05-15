@@ -19,6 +19,7 @@
         <title> Prudential Library </title>
     </head>
     <body>
+        <a href="{% url 'book_request' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
         {% if user.username == 'admin' %}
             <a href="{% url 'book_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
         {% endif %}
