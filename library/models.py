@@ -28,7 +28,7 @@ class Book(models.Model):
 
 class RequestBook(models.Model):
     title = models.CharField(max_length=200)
-    author = models.CharFiled(max_length=200)
+    author = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200)
     request_user = models.CharField(max_length=3, null=True)
     request_date = models.DateField(null=True)

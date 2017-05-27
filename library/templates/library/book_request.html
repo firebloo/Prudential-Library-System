@@ -2,6 +2,9 @@
 
 {% block content %}
     <h1>Book Request</h1>
+    {% for requestbooks in requestbooks %}
+        {{ requestbooks.title }} | {{ requestbooks.author }} | {{ requestbooks.publisher }} | {{ requestbooks.request_user }} | {{ requestbooks.request_date }} <BR>
+    {% endfor %}
     <form method="POST" class="book-form">
         {% csrf_token %}
         {{ form.as_p }}

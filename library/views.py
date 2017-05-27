@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Book
 from .models import RentHistory
 from .models import ReserveHistory
+from .models import RequestBook
 from django.shortcuts import render, get_object_or_404
 from .forms import BookForm
 from .forms import BookRequestForm
@@ -69,15 +70,18 @@ def book_release(request, pk):
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_request(request):
+    requestbooks = RequestBook.objects.order_by('request_date')
     if request.method == "POST":
         form = BookRequestForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
+            book.request_date = date.today()
+            book.request_user = request.user.username
             book.save()
-            return redirect('book_list')
+            return redirect('book_request')
     else:
-        form = BookForm()
-    return render(request, 'library/book_edit.html', {'form': form})
+        form = BookRequestForm()
+    return render(request, 'library/book_request.html', {'form': form, 'requestbooks':requestbooks})
 
 def book_new(request):
     if request.method == "POST":
