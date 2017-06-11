@@ -55,6 +55,10 @@ def book_rental(request, pk):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     book = get_object_or_404(Book, pk=pk)
     RentHistory(isbn = book.isbn, rental_date = date.today(), rental_user = request.user).save()
+
+    if ReserveHistory.objects.filter(isbn=book.isbn, reserve_user=request.user):
+        book_reserve_cancel(request, pk)
+
     book.rental_user = request.user.username
     book.rental_date = date.today()
     book.save()
