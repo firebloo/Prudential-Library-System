@@ -13,6 +13,8 @@ from django.views.generic.edit import CreateView
 from .forms import CreateUserForm
 from django.core.urlresolvers import reverse_lazy
 from datetime import date
+from django.contrib import messages
+from django.shortcuts import HttpResponseRedirect
 
 def book_list(request):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -29,9 +31,14 @@ def book_detail(request, pk):
 
 def book_reserve(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    ReserveHistory(isbn = book.isbn, reserve_date = date.today(), reserve_user=request.user).save()
     reserve_history = ReserveHistory.objects.filter(isbn=book.isbn).order_by('reserve_date')
     rental_history = RentHistory.objects.filter(isbn=book.isbn).order_by('-rental_date', 'release_date')
+    if ReserveHistory.objects.filter(isbn=book.isbn, reserve_user=request.user):
+        messages.info(request, '이미 예약중입니다')
+        return HttpResponseRedirect('/')
+    else:
+        ReserveHistory(isbn = book.isbn, reserve_date = date.today(), reserve_user=request.user).save()
+
     return render(request, 'library/book_detail.html', {'book': book, 'rental_history': rental_history,
                                                         'reserve_history': reserve_history})
 
