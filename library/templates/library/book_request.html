@@ -1,13 +1,28 @@
 {% extends 'library/base.html' %}
 
 {% block content %}
+    <script type="text/javascript">
+            function request_cancel() {
+               if (confirm('요청을 취소하시겠습니까?')) {
+                   location.href="{% url 'book_request_cancel' pk=7 %}"
+               } else {
+                   return false;
+               }
+            }
+         </script>
+
     <h1>Book Request</h1>
     {% for requestbooks in requestbooks %}
-        {{ requestbooks.title }} | {{ requestbooks.author }} | {{ requestbooks.publisher }} | {{ requestbooks.request_user }} | {{ requestbooks.request_date }} <BR>
+        {{ requestbooks.pk}} | {{ requestbooks.title }} | {{ requestbooks.author }} | {{ requestbooks.publisher }} | {{ requestbooks.request_user }} | {{ requestbooks.request_date|date:"Y-m-d"}} 요청
+        {% if requestbooks.request_user == user.username %}
+            <input class="btn btn-warning btn-xs" type="submit" onclick="request_cancel();" value="요청취소" />
+        {% endif %}
+    <BR>
     {% endfor %}
+    <BR><BR><BR>
     <form method="POST" class="book-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-primary">요청</button>
     </form>
 {% endblock %}
