@@ -3,6 +3,7 @@ from datetime import date
 from django.utils import timezone
 
 class Book(models.Model):
+    number = models.IntegerField()
     isbn = models.CharField(max_length=13, primary_key=True)
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
@@ -14,7 +15,7 @@ class Book(models.Model):
     request_user = models.CharField(max_length=3, null=True)
     request_date = models.DateField(null=True)
 
-    owner_user = models.CharField(max_length=3, null=True)
+    owner_user = models.CharField(max_length=5, null=True)
 
     rental_user = models.CharField(max_length=3, null=True)
     rental_date = models.DateField(null=True)

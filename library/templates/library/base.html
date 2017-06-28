@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/library.css' %}">
+        <!--<link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">-->
         <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
         <ul class="nav navbar-nav navbar-right">
@@ -25,12 +26,12 @@
         {% if user.username == 'admin' %}
             <a href="{% url 'book_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
         {% endif %}
-        <div class="page-header">
-            <h1><a href="/">Prudneital Library</a></h1>
+        <div class="page-header" align="center">
+            <h1><a href="/">Prudential Library</a></h1>
         </div>
         <div class="content container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-11">
                     {% block content %}
 		    {% endblock %}
 	        </div>

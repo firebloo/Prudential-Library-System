@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^book/(?P<pk>[0-9]+)/reserve_cancel/$', views.book_reserve_cancel, name='book_reserve_cancel'),
     url(r'^book/request/$', views.book_request, name='book_request'),
     # url(r'^book/request_cancel/$', views.book_request_cancel, name='book_request_cancel'),
-    url(r'^book/request_cancel/(?P<pk>[0-9]*)/$', views.book_request_cancel, name='book_request_cancel'),
+    url(r'^book/request_cancel/(?P<pk>[0-9]*)', views.book_request_cancel, name='book_request_cancel'),
 ]

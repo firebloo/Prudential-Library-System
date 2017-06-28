@@ -1,19 +1,18 @@
 {% extends 'library/base.html' %}
 
 {% block content %}
-    <script type="text/javascript">
-            function request_cancel() {
+    <h1>Book Request</h1>
+    {% for requestbooks in requestbooks %}
+        <script type="text/javascript">
+            function request_cancel(a) {
                if (confirm('요청을 취소하시겠습니까?')) {
-                   location.href="{% url 'book_request_cancel' pk=7 %}"
+                   location.href="{% url 'book_request_cancel' pk=requestbooks.pk %}"
                } else {
                    return false;
                }
             }
-         </script>
-
-    <h1>Book Request</h1>
-    {% for requestbooks in requestbooks %}
-        {{ requestbooks.pk}} | {{ requestbooks.title }} | {{ requestbooks.author }} | {{ requestbooks.publisher }} | {{ requestbooks.request_user }} | {{ requestbooks.request_date|date:"Y-m-d"}} 요청
+     </script>
+        {{ requestbooks.title }} | {{ requestbooks.author }} | {{ requestbooks.publisher }} | {{ requestbooks.request_user }} | {{ requestbooks.request_date|date:"Y-m-d"}} 요청
         {% if requestbooks.request_user == user.username %}
             <input class="btn btn-warning btn-xs" type="submit" onclick="request_cancel();" value="요청취소" />
         {% endif %}

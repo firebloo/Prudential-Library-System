@@ -1,14 +1,29 @@
+@font-face {
+  font-family: 'Prudential';
+  src: url('../fonts/prdntb.ttf') format('truetype')
+}
+@font-face {
+  font-family: 'NanumSquareB';
+  src: url('../fonts/NanumSquareB.ttf') format('truetype')
+}
+
+
 h1 a {
 	color: #FCA205;
-	font-family: 'Lobster';
+	font-family: 'Prudential';
+}
+
+.td {
+      vertical-align: center;
 }
 
 body {
 	padding-left: 15px;
+	font-family: 'NanumSqareB';
 }
 
 .page-header {
-    background-color: #ff9400;
+    background-color: #0079c1;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -20,11 +35,11 @@ body {
 }
 
 .content {
-    margin-left: 40px;
+    /*margin-left: 40px;*/
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Lobster', cursive;
+    font-family: 'Prudential';
 }
 
 .date {
@@ -48,7 +63,7 @@ h1, h2, h3, h4 {
 }
 
 .post {
-    margin-bottom: 70px;
+    margin-bottom: 10px;
 }
 
 .post h1 a, .post h1 a:visited {

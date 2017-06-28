@@ -2,28 +2,64 @@
 
 {% block content %}
     {% for book in books %}
-        <div class="post">
-            <table border="0" width="100%">
+        <script type="text/javascript">
+            function reserve() {
+               if (confirm('예약하시겠습니까?')) {
+                   location.href="{% url 'book_reserve' pk=book.pk %}"
+               } else {
+                   return false;
+               }
+            }
+
+            function release() {
+               if (confirm('반납하시겠습니까?')) {
+                   location.href="{% url 'book_release' pk=book.pk %}"
+               } else {
+                   return false;
+               }
+            }
+
+            function rental() {
+               if (confirm('대여하시겠습니까?')) {
+                   location.href="{% url 'book_rental' pk=book.pk %}"
+               } else {
+                   return false;
+               }
+            }
+         </script>
+        <div> <br>
+            <table border="0" width="100%" class="tab le table-striped table-bordered table-hover">
                 <tr>
-                    <td rowspan="2" width="20%">
-                        <h1><a href="{% url 'book_detail' pk=book.pk %}"><img src = "{{STATIC_URL}}/static/image/{{ book.isbn }}.gif" widht="30%" height="30%">
+                    <td align="center" rowspan="2" width="20%">
+                        <a href="{% url 'book_detail' pk=book.pk %}"><img src = "{{STATIC_URL}}/static/image/{{ book.isbn }}.jpg" widht="30%" height="30%">
                     </td>
                     <td>
-                            <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
+                            <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
                     </td>
-                    <td rowspan="2" width="20%">
-                        <div class="date">
-                            {{ book.request_date | date:"Y-m" }} 입고
+                    <td align="center" rowspan="2" width="16%">
+                        <div>
+                            {{ book.request_date | date:"Y-m" }} 입고 <p></p>
                             {% if user.is_active %}
                                 {% if book.rental_user %}
                                     {% if book.rental_user == user.username %}
-                                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
+                                        <!--<p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>-->
+                                        <input class="btn btn-warning btn-xs" type="submit" onclick="release();" value="반납하기" />
                                     {% else %}
                                         <p>{{ book.rental_user }}</p>
-                                        <p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>
+                                        <!--<p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>-->
+                                        <input class="btn btn-default btn-xs" type="submit" onclick="reserve();" value="예약하기" />
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                            <script>
+                                                alert('{{ message }}');
+                                                location.href="{% url 'book_detail' pk=book.pk %}"
+                                            </script>
+                                            {% endfor %}
+                                        {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                                    <!--<p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>-->
+                                    <input class="btn btn-success btn-xs" type="submit" onclick="rental();" value="대여하기" />
                                 {% endif %}
                             {% else %}
                                 {% if book.rental_user %}

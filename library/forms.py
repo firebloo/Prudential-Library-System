@@ -8,7 +8,7 @@ from .models import RentHistory
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('isbn', 'title', 'author', 'publisher', 'published_date', 'category', 'page',
+        fields = ('number', 'isbn', 'title', 'author', 'publisher', 'published_date', 'category', 'page',
                   'request_user', 'request_date', 'owner_user',)
 
 class BookRequestForm(forms.ModelForm):
