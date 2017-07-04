@@ -15,6 +15,10 @@ from django.core.urlresolvers import reverse_lazy
 from datetime import date
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 
 def book_list(request):
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('-number')
@@ -103,7 +107,7 @@ def book_request(request):
         form = BookRequestForm()
     return render(request, 'library/book_request.html', {'form': form, 'requestbooks':requestbooks})
 
-def book_new(request):
+def book_new_temp(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
@@ -136,7 +140,7 @@ def book_edit(request, pk):
         form = BookForm(instance=book)
     return render(request, 'library/book_edit.html', {'form': form})
 
-def book_new_all(request):
+def book_new(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():

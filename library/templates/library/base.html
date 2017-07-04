@@ -9,7 +9,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             {% if user.is_active %}
-                <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{user.username}}</a></li>
+                <li><a href="{%url 'change-password' %}"> <span class="glyphicon glyphicon-heart"></span> {{user.username}}</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
                 <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-user"></span> Login</a></li>
