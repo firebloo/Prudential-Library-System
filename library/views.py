@@ -81,13 +81,13 @@ def book_release(request, pk):
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_request_cancel(request, pk):
-    requestbooks = RequestBook.objects.order_by('request_date')
+    # requestbooks = RequestBook.objects.order_by('request_date')
 
     requestbook = get_object_or_404(RequestBook, pk=pk)
     requestbook.delete()
-    form = BookRequestForm()
-
-    return render(request, 'library/book_request.html', {'form': form, 'requestbooks': requestbooks})
+    # form = BookRequestForm()
+    return redirect('book_request')
+    # return render(request, 'library/book_request.html', {'form': form, 'requestbooks': requestbooks})
 
 def book_request(request):
     requestbooks = RequestBook.objects.order_by('request_date')

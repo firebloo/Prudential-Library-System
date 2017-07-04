@@ -18,11 +18,13 @@
                             {% if user.is_active %}
                                 {% if book.rental_user %}
                                     {% if book.rental_user == user.username %}
-                                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
+                                        <!--<p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>-->
+                                        <p><a class="btn btn-warning btn-xs" href="{% url 'book_release' pk=book.pk %}" role="button">반납하기</a></p>
                                         <!--<input class="btn btn-warning btn-xs" type="submit" onclick="release();" value="반납하기" />-->
                                     {% else %}
                                         <p>{{ book.rental_user }}</p>
-                                        <p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>
+                                        <!--<p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>-->
+                                        <p><a class="btn btn-default btn-xs" href="{% url 'book_reserve' pk=book.pk %}" role="button">예약하기</a></p>
                                         <!--<input class="btn btn-default btn-xs" type="submit" onclick="reserve("'+{{book.pk}}+'");" value="예약하기" />-->
                                         {% if messages %}
                                             {% for message in messages %}
@@ -34,7 +36,8 @@
                                         {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                                    <!--<p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>-->
+                                    <p><a class="btn btn-success btn-xs" href="{% url 'book_rental' pk=book.pk %}" role="button">대여하기</a></p>
                                     <!--<input class="btn btn-success btn-xs" type="submit" onclick="rental();" value="대여하기" />-->
                                 {% endif %}
                             {% else %}
