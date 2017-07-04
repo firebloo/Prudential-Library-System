@@ -52,7 +52,7 @@ def book_reserve_cancel(request, pk):
                                                         'reserve_history': reserve_history})
 
 def book_rental(request, pk):
-    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('-number')
     book = get_object_or_404(Book, pk=pk)
     RentHistory(isbn = book.isbn, rental_date = date.today(), rental_user = request.user).save()
 
@@ -68,7 +68,7 @@ def book_rental(request, pk):
     return render(request, 'library/book_list.html', {'books': books})
 
 def book_release(request, pk):
-    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    books = Book.objects.filter(published_date__lte=timezone.now()).order_by('-number')
     book = get_object_or_404(Book, pk=pk)
     renthistory = get_object_or_404(RentHistory, isbn=book.isbn, release_date=None)
 

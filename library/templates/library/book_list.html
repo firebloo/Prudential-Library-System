@@ -2,31 +2,7 @@
 
 {% block content %}
     {% for book in books %}
-        <script type="text/javascript">
-            function reserve() {
-               if (confirm('예약하시겠습니까?')) {
-                   location.href="{% url 'book_reserve' pk=book.pk %}"
-               } else {
-                   return false;
-               }
-            }
 
-            function release() {
-               if (confirm('반납하시겠습니까?')) {
-                   location.href="{% url 'book_release' pk=book.pk %}"
-               } else {
-                   return false;
-               }
-            }
-
-            function rental() {
-               if (confirm('대여하시겠습니까?')) {
-                   location.href="{% url 'book_rental' pk=book.pk %}"
-               } else {
-                   return false;
-               }
-            }
-         </script>
         <div> <br>
             <table border="0" width="100%" class="tab le table-striped table-bordered table-hover">
                 <tr>
@@ -42,12 +18,12 @@
                             {% if user.is_active %}
                                 {% if book.rental_user %}
                                     {% if book.rental_user == user.username %}
-                                        <!--<p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>-->
-                                        <input class="btn btn-warning btn-xs" type="submit" onclick="release();" value="반납하기" />
+                                        <p><a href="{% url 'book_release' pk=book.pk %}">반납하기</a></p>
+                                        <!--<input class="btn btn-warning btn-xs" type="submit" onclick="release();" value="반납하기" />-->
                                     {% else %}
                                         <p>{{ book.rental_user }}</p>
-                                        <!--<p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>-->
-                                        <input class="btn btn-default btn-xs" type="submit" onclick="reserve();" value="예약하기" />
+                                        <p><a href="{% url 'book_reserve' pk=book.pk %}">예약하기</a></p>
+                                        <!--<input class="btn btn-default btn-xs" type="submit" onclick="reserve("'+{{book.pk}}+'");" value="예약하기" />-->
                                         {% if messages %}
                                             {% for message in messages %}
                                             <script>
@@ -58,8 +34,8 @@
                                         {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    <!--<p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>-->
-                                    <input class="btn btn-success btn-xs" type="submit" onclick="rental();" value="대여하기" />
+                                    <p><a href="{% url 'book_rental' pk=book.pk %}">대여하기</a></p>
+                                    <!--<input class="btn btn-success btn-xs" type="submit" onclick="rental();" value="대여하기" />-->
                                 {% endif %}
                             {% else %}
                                 {% if book.rental_user %}
