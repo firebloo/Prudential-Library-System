@@ -140,7 +140,7 @@ def book_edit(request, pk):
         form = BookForm(instance=book)
     return render(request, 'library/book_edit.html', {'form': form})
 
-def book_new(request):
+def book_new_initialize(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
@@ -780,6 +780,237 @@ def book_new(request):
             book.request_user = '기존서적'
             book.request_date = '2017-06-01'
             book.owner_user = '시스템본부'
+            book.save()
+
+            return redirect('book_detail', pk=book.pk)
+    else:
+        form = BookForm()
+    return render(request, 'library/book_edit.html', {'form': form})
+
+def book_new(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.number=54
+            book.isbn = '9788960775022'
+            book.title = '소프트웨어 테스트 자동화'
+            book.author = '도로시 그레이엄'
+            book.publisher = '에이콘출판사'
+            book.published_date = '2013-12-23'
+            book.category = '전공'
+            book.page = 728
+            book.request_user = '하경호'
+            book.request_date = '2017-08-01'
+            book.owner_user = '시스템본부'
+            book.save()
+
+            book.number=55
+            book.isbn = '9788968484636'
+            book.title = '밑바닥부터 시작하는 딥러닝'
+            book.author = '사이토 고키'
+            book.publisher = '한빛미디어'
+            book.published_date = '2017-01-03'
+            book.category = '전공'
+            book.page = 312
+            book.request_user = '전명수'
+            book.request_date = '2017-08-01'
+            book.owner_user = '시스템본부'
+            book.save()
+
+            book.number=56
+            book.isbn = '9788996731603'
+            book.title = 'WebSphere 애플리케이션 아키텍처'
+            book.author = '조이 버널'
+            book.publisher = 'ISIS'
+            book.published_date = '2011-10-06'
+            book.category = '전공'
+            book.page = 450
+            book.request_user = '기존서적'
+            book.request_date = '2017-08-01'
+            book.owner_user = '시스템본부'
+            book.save()
+
+            book.number=57
+            book.isbn = '8995848200'
+            book.title = '웹 2.0 이노베이션'
+            book.author = '오가와 히로시'
+            book.publisher = '위즈나인'
+            book.published_date = '2006-09-08'
+            book.category = '전공'
+            book.page = 282
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=58
+            book.isbn = '9788994711010'
+            book.title = '위험천만 테스팅'
+            book.author = '권원일'
+            book.publisher = 'STA테스팅컨설팅'
+            book.published_date = '2012-06-22'
+            book.category = '전공'
+            book.page = 145
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=59
+            book.isbn = '8970856579'
+            book.title = '블루 오션 전략'
+            book.author = '김위찬'
+            book.publisher = '교보문고'
+            book.published_date = '2005-04-08'
+            book.category = '비소설'
+            book.page = 332
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=60
+            book.isbn = '9788956744506'
+            book.title = '소프트웨어 요구사항 패턴'
+            book.author = '스티브 윗올'
+            book.publisher = '정보문화사'
+            book.published_date = '2008-10-31'
+            book.category = '전공'
+            book.page = 520
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=61
+            book.isbn = '9788984989603'
+            book.title = '생각'
+            book.author = '이어령'
+            book.publisher = '생각의나무'
+            book.published_date = '2009-07-01'
+            book.category = '비소설'
+            book.page = 280
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=62
+            book.isbn = '893491064'
+            book.title = '성공하는 기업들의 8가지 습관'
+            book.author = '짐 콜린스'
+            book.publisher = '김영사'
+            book.published_date = '2002-10-10'
+            book.category = '비소설'
+            book.page = 471
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=63
+            book.isbn = '9788996210429'
+            book.title = '긍정의 힘'
+            book.author = '조엘 오스틴'
+            book.publisher = '긍정의힘'
+            book.published_date = '2005-05-11'
+            book.category = '비소설'
+            book.page = 320
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=64
+            book.isbn = '8983003995'
+            book.title = '한계를 넘어서'
+            book.author = '엘리 골드렛'
+            book.publisher = '동양북스'
+            book.published_date = '2004-10-25'
+            book.category = '비소설'
+            book.page = 336
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=65
+            book.isbn = '8989778980'
+            book.title = '경세지략'
+            book.author = '홍매'
+            book.publisher = '넥서스'
+            book.published_date = '2003-11-01'
+            book.category = '비소설'
+            book.page = 680
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=66
+            book.isbn = '9788947527422'
+            book.title = '넷브레이킹'
+            book.author = '조일훈'
+            book.publisher = '한국경제신문사'
+            book.published_date = '2010-01-27'
+            book.category = '비소설'
+            book.page = 286
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=67
+            book.isbn = '9788992060257'
+            book.title = 'CEO와 경쟁하라'
+            book.author = '김도연'
+            book.publisher = '토네이도'
+            book.published_date = '2007-08-16'
+            book.category = '비소설'
+            book.page = 264
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=68
+            book.isbn = '8990982197'
+            book.title = '웹 진화론'
+            book.author = '우메다 모치오'
+            book.publisher = '도서출판재인'
+            book.published_date = '2006-09-16'
+            book.category = '비소설'
+            book.page = 232
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=69
+            book.isbn = '8995398272'
+            book.title = '느림에의 초대'
+            book.author = '브리깃 뢰트라인'
+            book.publisher = '산호와진주'
+            book.published_date = '2005-07-15'
+            book.category = '비소설'
+            book.page = 216
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
+            book.save()
+
+            book.number=70
+            book.isbn = '9788961885539'
+            book.title = '10미터만 더 뛰어봐!'
+            book.author = '김영식'
+            book.publisher = '중앙북스'
+            book.published_date = '2008-07-01'
+            book.category = '비소설'
+            book.page = 249
+            book.request_user = None
+            book.request_date = '2017-08-01'
+            book.owner_user = '김성호'
             book.save()
 
             return redirect('book_detail', pk=book.pk)
