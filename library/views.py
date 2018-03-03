@@ -11,7 +11,7 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from .forms import CreateUserForm
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from datetime import date
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect
